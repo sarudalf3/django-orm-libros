@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Info</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> <!--Bootstrap css-->
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{books.title}}</h5>
+        <h5>ID: {{books.id}}</h5>
+        <h5>Description: {{books.desc}}</h5>
+        <h5>Authors: </h5>
+        
+        <ul>
+            {% for author in authors %}
+            <li>{{author.first_name}} {{author.last_name}}</li>   
+            {% endfor %} 
+        </ul>
+    </div>
+    <hr>
+
+    <form action="{{books.id}}/append_authors" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <select class="form-select" name="select_author">
+                <option selected value>--Select a Author--</option>
+                {% for author in all_authors %}
+                <option value="{{author.id}}">{{author.first_name}} {{author.last_name}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>        
+    </form>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>  <!--Bootstrap js-->
+</body>
+</html>
